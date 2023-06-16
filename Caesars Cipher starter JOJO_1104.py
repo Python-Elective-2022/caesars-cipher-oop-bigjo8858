@@ -101,28 +101,18 @@ class Message(object):
 
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
-        '''
-        shiftDict = dict()
-        for i in range(65, 91):
-            char = chr(i)
-            shiftChar = i + shift
-            if shiftChar < 65:
-                shiftChar += 26
-            elif shiftChar > 90:
-                shiftChar -= 26
-            shiftChar = chr(shiftChar)
-            shiftDict[char] = shiftChar
-        for i in range(97, 123):
-            char = chr(i)
-            shiftChar = i + shift
-            if shiftChar < 97:
-                shiftChar += 26
-            elif shiftChar > 122:
-                shiftChar -= 26
-            shiftChar = chr(shiftChar)
-            shiftDict[char] = shiftChar
-        return shiftDict
-
+        '''    
+my_dict = {}
+lower = string.ascii_lowercase
+upper = string.ascii_uppercase
+for letter in lower:
+    shifted_index = (lower.index(letter) + shift) % 26
+    my_dict[letter] = lower[shifted_index]
+for letter in upper:
+    shifted_index = (upper.index(letter) + shift) % 26
+    my_dict[letter] = upper[shifted_index]
+return my_dict
+       
     def apply_shift(self, shift):
         '''
         Applies the Caesar Cipher to self.message_text with the input shift.
@@ -135,14 +125,15 @@ class Message(object):
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
-        word = ''
-        shiftDisc = self.build_shift_dict(shift)
-        for x in self.message_text:
-            if x in shiftDisc:
-                word += shiftDisc[x]
-            else:
-                word += x
-        return word
+new_msg = ''
+shift_dict = self.build_shift_dict(shift)
+for letter in self.message_text:
+    if letter.isalpha()
+        new_msg += shift_dict[letter]
+    else:
+        new_msg += letter
+return new_msg
+     
 
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
